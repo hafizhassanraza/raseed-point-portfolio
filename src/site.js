@@ -13,6 +13,8 @@ export const features = [
     slug: "billing",
     name: "Point of sale",
     line: "Make the bill at the counter.",
+    plain: "Make the bill by name, item code, or barcode. Stock left, tax, discount, and payment stay on that screen.",
+    why: "The counter does not switch apps to see if the part is still there, or to write the customer’s name.",
     detail:
       "The counter search finds a part by name, item code, or barcode. Quantity left is on the tile. Tax, discount, shipping, and payment stay on the same bill.",
     points: [
@@ -35,6 +37,8 @@ export const features = [
     slug: "sales",
     name: "Sales and returns",
     line: "Follow a bill after it is made.",
+    plain: "Follow each invoice after it is made: status, what is paid, and what is still due. An estimate and a return stay attached.",
+    why: "A bill does not disappear into a drawer. A return stays on the customer as a credit note.",
     detail:
       "Each invoice shows where it stands: ordered, confirmed, processing, or delivered, and whether it is paid. A price can be written before the bill. A return stays on the customer as a credit note.",
     points: [
@@ -57,6 +61,8 @@ export const features = [
     slug: "purchases",
     name: "Purchases",
     line: "Supplier bills bring stock in.",
+    plain: "A supplier bill brings stock in. Sending goods back stays on the record, with what is still owed.",
+    why: "The order is not a WhatsApp message you have to scroll back to find.",
     detail:
       "A purchase bill receives goods into the warehouse. Sending stock back creates a debit note without losing the original bill. What is still owed to the supplier stays visible.",
     points: [
@@ -79,6 +85,8 @@ export const features = [
     slug: "catalog",
     name: "Catalog",
     line: "Price and stock on one row.",
+    plain: "Selling price, purchase price, and quantity sit on one row. Variants, a spreadsheet import, and shelf barcodes are included.",
+    why: "The rate list and the stock list are the same list.",
     detail:
       "A part can be a single item, a set of variants, or a service. Brand, category, purchase price, selling price, and quantity sit on the row. A large list can be imported, and barcodes can be printed for the shelf.",
     points: [
@@ -101,6 +109,8 @@ export const features = [
     slug: "warehouses",
     name: "Warehouses",
     line: "More than one godown, one system.",
+    plain: "More than one godown, transfers between them, a count correction, and an alert before a part runs out.",
+    why: "Two branches do not need two systems, or a phone call, to know what is left.",
     detail:
       "Stock can live in more than one warehouse. A transfer moves goods between them. When the shelf and the system disagree, the count can be corrected. A fast-moving part can raise an alert before it runs out.",
     points: [
@@ -123,6 +133,8 @@ export const features = [
     slug: "balances",
     name: "Balances",
     line: "Who owes whom, in colour.",
+    plain: "Customers, suppliers, and staff stay in separate lists, with To Collect and To Pay on the row.",
+    why: "A regular is not anonymous. The balance is visible before anyone opens a calculator.",
     detail:
       "Customers, suppliers, and staff stay in separate lists. To Collect and To Pay are visible before anyone opens a calculator. A list that already lives in Excel can be imported.",
     points: [
@@ -145,6 +157,8 @@ export const features = [
     slug: "money",
     name: "Cash, bank, and profit",
     line: "Close the day from one page.",
+    plain: "Cash and bank are separate books. Expenses sit beside sales. Profit can be printed, saved as a PDF, or sent to Excel.",
+    why: "The day closes from the system, not from a notebook added up at night.",
     detail:
       "Cash and bank are separate books. Shop expenses sit beside the sales they affect. Profit and loss can be read by order or by date, then printed, saved as a PDF, or sent to Excel.",
     points: [
@@ -167,6 +181,8 @@ export const features = [
     slug: "store",
     name: "Online store",
     line: "The same catalog, on a phone.",
+    plain: "The same catalog can open as a public store, with a cart. The order comes back into the admin.",
+    why: "The online shop is not a second catalog you have to keep in step by hand.",
     detail:
       "Each warehouse can open a public store when that branch is ready. Customers see the selling price against the old price, add to a cart, and the order comes back into the admin.",
     points: [
@@ -189,6 +205,8 @@ export const features = [
     slug: "staff",
     name: "Staff and permissions",
     line: "The salesman does not see profit.",
+    plain: "Admin, stock manager, and salesman come ready. A salesman can sell without opening profit. Attendance sits in the same system.",
+    why: "The person at the counter does not need the owner’s books.",
     detail:
       "Three roles come ready: admin, stock manager, and salesman. A salesman can sell without opening the profit report. Attendance, leave, and payroll sit in the same system.",
     points: [
@@ -232,6 +250,48 @@ export const fits = [
     title: "Owner-operated shops",
     text: "One person can sell, record an expense, and read profit. Roles grow when the staff does.",
   },
+];
+
+export const pains = [
+  {
+    title: "Stock you cannot see",
+    text: "If the shelf and the spreadsheet disagree, the counter sells what is already gone, or the shop buys what is already in the godown.",
+  },
+  {
+    title: "Suppliers living in chat",
+    text: "A purchase that lives in WhatsApp is easy to lose, and hard to match when the goods arrive.",
+  },
+  {
+    title: "Branches that do not add up",
+    text: "Two locations on two lists means nobody can see which godown is short without a manual count.",
+  },
+  {
+    title: "Customers with no memory",
+    text: "A named account in a notebook cannot show what they bought last time, or what they still owe.",
+  },
+];
+
+export const benefits = [
+  "The bill, the stock left, and the payment on one screen.",
+  "Quantity updates when the bill is saved.",
+  "Supplier bills bring stock in, and returns stay on the record.",
+  "Customer and supplier balances, before anyone opens a calculator.",
+  "Cash, bank, expenses, and profit from the same close.",
+  "More than one warehouse, with transfers between them.",
+  "A salesman can sell without opening the profit report.",
+  "A public store from the same catalog, when a branch is ready.",
+];
+
+export const compare = [
+  ["The bill at the counter", "Yes", "Written by hand", "Yes"],
+  ["Stock moves with the bill", "Yes", "Updated later, if at all", "Often a separate list"],
+  ["Supplier bills and returns", "Yes", "A chat and a notebook", "Usually outside the app"],
+  ["More than one warehouse", "Yes", "A second file", "Uncommon"],
+  ["Who owes whom", "On the customer list", "A notebook", "A name on the bill"],
+  ["Cash, bank, and profit", "One close", "Added up at night", "Outside the app"],
+  ["Salesman kept out of profit", "Yes, by role", "Whoever holds the book", "Uncommon"],
+  ["Online store, same catalog", "Yes", "A different site", "A different subscription"],
+  ["Price", "Quoted for the shop", "—", "Their own rate"],
 ];
 
 export const industries = [
@@ -341,6 +401,18 @@ export const faqs = [
     qUr: "آن لائن دکان بھی ہے؟",
     a: "Yes. The storefront uses the same products. Customers see a selling price and an old price, and the order comes back into the admin.",
     aUr: "ہاں۔ وہی سامان۔ گاہک قیمت دیکھے، ٹوکری میں ڈالے، آرڈر آپ کے پاس آ جائے۔",
+  },
+  {
+    q: "Can the counter use a phone?",
+    qUr: "کاؤنٹر فون پر بل بنا سکتا ہے؟",
+    a: "Yes. The same point of sale runs on a phone. The owner can still read the day on a larger screen.",
+    aUr: "ہاں۔ وہی بل فون پر بنتا ہے۔ مالک دن بڑی سکرین پر دیکھ سکتا ہے۔",
+  },
+  {
+    q: "How much does it cost?",
+    qUr: "قیمت کتنی ہے؟",
+    a: "The price is quoted for the shop on a walkthrough. This page does not print a rate.",
+    aUr: "قیمت واک تھرو پر دکان کے حساب سے بتائی جاتی ہے۔ اس صفحے پر کوئی رقم نہیں لکھی۔",
   },
   {
     q: "What do you need to start?",

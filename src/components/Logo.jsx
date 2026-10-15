@@ -1,0 +1,16 @@
+export default function Logo() {
+  return (
+    <span className="logo">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <rect width="40" height="40" rx="12" fill="#1890ff" />
+        <path fill="#fff" d="M12 9h12.2L29 13.8V30a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V11a2 2 0 0 1 2-2z" />
+        <path fill="#1890ff" d="M24.2 9.4 28.6 13.8H24.2z" />
+        <path stroke="#1890ff" strokeWidth="1.7" strokeLinecap="round" d="M14.5 18.5h8.5M14.5 22.2h6.2" />
+        <circle cx="25.2" cy="26.4" r="2.3" fill="#1890ff" />
+      </svg>
+      <span className="logo-word">
+        Raseed <span>Point</span>
+      </span>
+    </span>
+  );
+}

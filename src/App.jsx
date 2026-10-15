@@ -11,7 +11,7 @@ import NotFound from "./pages/NotFound.jsx";
 import { featureBySlug } from "./site.js";
 
 const titles = {
-  "/": "Raseed Point — The shop, kept in one place",
+  "/": "Raseed Point — Business Software for Small Businesses",
   "/product": "Features — Raseed Point",
   "/solutions": "Who it's for — Raseed Point",
   "/faq": "Questions — Raseed Point",

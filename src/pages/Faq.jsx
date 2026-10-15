@@ -7,7 +7,7 @@ export default function Faq() {
       <PageHero
         eyebrow="Questions"
         title="Short answers, in English and Urdu."
-        lede="The question is in English. The Urdu line under it says the same thing."
+        lede="English on the left. Urdu on the right. They say the same thing."
       />
       <section className="section">
         <FaqList />

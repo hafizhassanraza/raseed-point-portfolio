@@ -11,7 +11,7 @@ export default function FaqList() {
         return (
           <article className={isOpen ? "faq on" : "faq"} key={item.q}>
             <button type="button" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? -1 : index)}>
-              <span>
+              <span className="faq-pair">
                 <strong>{item.q}</strong>
                 <span className="ur" lang="ur" dir="rtl">
                   {item.qUr}

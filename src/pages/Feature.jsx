@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router-dom";
+import { WindowFrame } from "../components/Devices.jsx";
 import Recording from "../components/Recording.jsx";
 import NotFound from "./NotFound.jsx";
 import { featureBySlug, features } from "../site.js";
@@ -24,6 +25,7 @@ export default function Feature() {
       <div className="feature-grid">
         <div>
           <p className="lede">{feature.detail}</p>
+          {feature.why ? <p className="why"><strong>Why it matters. </strong>{feature.why}</p> : null}
           <ul className="points">
             {feature.points.map((point) => (
               <li key={point}>{point}</li>
@@ -33,7 +35,7 @@ export default function Feature() {
         <section className="stage stage-shot" aria-labelledby="shot-title">
           <h2 id="shot-title">Screenshot</h2>
           <figure>
-            <img src={feature.shot.src} alt={feature.shot.caption} />
+            <WindowFrame src={feature.shot.src} alt={feature.shot.caption} />
             <figcaption>{feature.shot.caption}</figcaption>
           </figure>
         </section>

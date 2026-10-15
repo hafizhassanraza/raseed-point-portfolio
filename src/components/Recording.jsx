@@ -39,7 +39,9 @@ export default function Recording({ frames }) {
 
   return (
     <div className="recording">
-      <img key={frame.src} src={frame.src} alt={frame.title} />
+      <div className="shot-frame">
+        <img key={frame.src} src={frame.src} alt={frame.title} />
+      </div>
       <div className="recording-copy">
         <strong>{frame.title}</strong>
         <p>{frame.caption}</p>
