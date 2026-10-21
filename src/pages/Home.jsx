@@ -22,7 +22,7 @@ export default function Home() {
             for <em>Small Businesses</em>
           </h1>
           <p className="lede">
-            Raseed Point Solution – your trusted partner in simplifying invoicing, accounting, and inventory with easy-to-use business software for small businesses. Raseed Point helps you manage operations efficiently and grow with confidence.
+            Raseed Point Solution – your trusted partner in simplifying <strong>invoicing, accounting, and inventory</strong> with easy-to-use business software for small businesses. Raseed Point helps you manage operations efficiently and grow with confidence.
           </p>
           <div className="actions">
             <Link className="btn btn-solid" to="/contact">
@@ -34,36 +34,8 @@ export default function Home() {
           </div>
         </div>
         <div className="hero-stage">
-          <div className="bill-scene">
-            <Phone src="/screenshots/pos-phone.png" alt="Point of sale on a phone, with filters, stock, and prices." />
-            <div className="bill-float">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Item</th>
-                    <th>Stock</th>
-                    <th>Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="on">
-                    <td>Oil Filter - Suzuki Mehran</td>
-                    <td>86 pc</td>
-                    <td>Rs450.00</td>
-                  </tr>
-                  <tr>
-                    <td>Oil Filter - Toyota Corolla</td>
-                    <td>109 pc</td>
-                    <td>Rs650.00</td>
-                  </tr>
-                  <tr>
-                    <td>Air Filter - Honda City</td>
-                    <td>35 pc</td>
-                    <td>Rs850.00</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div className="shot-frame">
+            <img src="/screenshots/dashboard.png" alt="The day, at a glance" />
           </div>
         </div>
         <ul className="hero-points">
