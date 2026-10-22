@@ -2,24 +2,26 @@ import { Link, useParams } from "react-router-dom";
 import { WindowFrame } from "../components/Devices.jsx";
 import Recording from "../components/Recording.jsx";
 import NotFound from "./NotFound.jsx";
-import { featureBySlug, features } from "../site.js";
+import { featureBySlug } from "../site.js";
 
 export default function Feature() {
   const { slug } = useParams();
   const found = featureBySlug(slug);
   if (!found) return <NotFound />;
 
-  const { feature, index } = found;
-  const previous = features[(index - 1 + features.length) % features.length];
-  const next = features[(index + 1) % features.length];
+  const { feature, pillar, siblings, within } = found;
+  const previous = within > 0 ? siblings[within - 1] : null;
+  const next = within >= 0 && within < siblings.length - 1 ? siblings[within + 1] : null;
+  const others = siblings.filter((item) => item.slug !== feature.slug);
 
   return (
     <article className="feature">
-      <Link className="back" to="/product">
+      <Link className="back" to="/features">
         All features
       </Link>
       <p className="eyebrow">
-        Feature {String(index + 1).padStart(2, "0")} of {String(features.length).padStart(2, "0")}
+        {pillar ? `${pillar.name} · ` : ""}
+        {String(within + 1).padStart(2, "0")} of {String(siblings.length).padStart(2, "0")}
       </p>
       <h1>{feature.name}</h1>
       <div className="feature-grid">
@@ -47,16 +49,38 @@ export default function Feature() {
         <Recording frames={feature.recording} />
       </section>
 
-      <nav className="pager" aria-label="Other features">
-        <Link to={`/features/${previous.slug}`}>
-          <small>Previous</small>
-          {previous.name}
-        </Link>
-        <Link to={`/features/${next.slug}`}>
-          <small>Next</small>
-          {next.name}
-        </Link>
-      </nav>
+      {others.length ? (
+        <section className="also" aria-label={`Also in ${pillar.name}`}>
+          <h2>Also in {pillar.name}</h2>
+          <ul className="pillar-parts">
+            {others.map((item) => (
+              <li key={item.slug}>
+                <Link to={`/features/${item.slug}`}>
+                  <strong>{item.name}</strong>
+                  <span>{item.line}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {previous || next ? (
+        <nav className="pager" aria-label={`Other parts of ${pillar.name}`}>
+          {previous ? (
+            <Link to={`/features/${previous.slug}`}>
+              <small>Previous in {pillar.name}</small>
+              {previous.name}
+            </Link>
+          ) : null}
+          {next ? (
+            <Link className="pager-next" to={`/features/${next.slug}`}>
+              <small>Next in {pillar.name}</small>
+              {next.name}
+            </Link>
+          ) : null}
+        </nav>
+      ) : null}
     </article>
   );
 }

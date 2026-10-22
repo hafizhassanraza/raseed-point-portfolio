@@ -4,7 +4,9 @@ import Layout from "./components/Layout.jsx";
 import Home from "./pages/Home.jsx";
 import Product from "./pages/Product.jsx";
 import Feature from "./pages/Feature.jsx";
-import Solutions from "./pages/Solutions.jsx";
+import Industries from "./pages/Industries.jsx";
+import Pricing from "./pages/Pricing.jsx";
+import Demo from "./pages/Demo.jsx";
 import Faq from "./pages/Faq.jsx";
 import Contact from "./pages/Contact.jsx";
 import NotFound from "./pages/NotFound.jsx";
@@ -12,10 +14,12 @@ import { featureBySlug } from "./site.js";
 
 const titles = {
   "/": "Raseed Point — Business Software for Small Businesses",
-  "/product": "Features — Raseed Point",
-  "/solutions": "Who it's for — Raseed Point",
+  "/features": "Features — Raseed Point",
+  "/industries": "Industries — Raseed Point",
+  "/pricing": "Pricing — Raseed Point",
+  "/demo": "Demo — Raseed Point",
   "/faq": "Questions — Raseed Point",
-  "/contact": "Book a walkthrough — Raseed Point",
+  "/contact": "Contact us — Raseed Point",
 };
 
 export default function App() {
@@ -33,12 +37,16 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="product" element={<Product />} />
+        <Route path="features" element={<Product />} />
         <Route path="features/:slug" element={<Feature />} />
-        <Route path="tour" element={<Navigate to="/product" replace />} />
-        <Route path="screens" element={<Navigate to="/product" replace />} />
-        <Route path="showcase" element={<Navigate to="/product" replace />} />
-        <Route path="solutions" element={<Solutions />} />
+        <Route path="product" element={<Navigate to="/features" replace />} />
+        <Route path="tour" element={<Navigate to="/features" replace />} />
+        <Route path="screens" element={<Navigate to="/features" replace />} />
+        <Route path="showcase" element={<Navigate to="/features" replace />} />
+        <Route path="industries" element={<Industries />} />
+        <Route path="solutions" element={<Navigate to="/industries" replace />} />
+        <Route path="pricing" element={<Pricing />} />
+        <Route path="demo" element={<Demo />} />
         <Route path="faq" element={<Faq />} />
         <Route path="contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />

@@ -1,29 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Logo from "./Logo.jsx";
 import { contactEmail } from "../site.js";
 
-const links = [
-  ["The system", "/#suite"],
-  ["Industries", "/#industries"],
-  ["Packages", "/#packages"],
-  ["Questions", "/faq"],
-];
+gsap.registerPlugin(ScrollTrigger);
 
-const sectionFor = {
-  "The system": "suite",
-  Industries: "industries",
-  Packages: "packages",
-};
+const links = [
+  ["Features", "/features"],
+  ["Industries", "/industries"],
+  ["Pricing", "/pricing"],
+  ["Demo", "/demo"],
+];
 
 export default function Layout() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState("");
   const { pathname, hash } = useLocation();
-  const featuresOn = pathname === "/product" || pathname.startsWith("/features");
+  const landing = pathname === "/";
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setOpen(false);
     if (hash) {
       const target = document.getElementById(hash.slice(1));
@@ -32,28 +29,46 @@ export default function Layout() {
         return;
       }
     }
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "auto" });
   }, [pathname, hash]);
 
+  useLayoutEffect(() => {
+    if (landing || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+    const root = document.getElementById("main");
+    if (!root) return undefined;
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray(".page-hero, .section, .feature").forEach((node) => {
+        gsap.from(node, {
+          y: 28,
+          autoAlpha: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: node,
+            start: "top 90%",
+            once: true,
+          },
+        });
+      });
+    }, root);
+    return () => ctx.revert();
+  }, [pathname, landing]);
+
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 48);
-      if (pathname !== "/") {
-        setActive("");
-        return;
-      }
-      const line = window.scrollY + 96;
-      let current = "";
-      for (const id of ["suite", "industries", "packages"]) {
-        const node = document.getElementById(id);
-        if (node && node.offsetTop <= line) current = id;
-      }
-      setActive(current);
-    };
+    document.documentElement.classList.toggle("landing", landing);
+    return () => document.documentElement.classList.remove("landing");
+  }, [landing]);
+
+  useEffect(() => {
+    if (landing) {
+      setScrolled(false);
+      return undefined;
+    }
+    const onScroll = () => setScrolled(window.scrollY > 48);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [pathname, hash]);
+  }, [landing]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -67,36 +82,24 @@ export default function Layout() {
       <a className="skip" href="#main">
         Skip to content
       </a>
-      <header className={scrolled || open ? "nav scrolled" : "nav"}>
+      <header className={!landing && (scrolled || open) ? "nav scrolled" : "nav"}>
         <div className="nav-inner">
-          <Link className="brand" to="/" onClick={() => setActive("")}>
+          <Link className="brand" to="/">
             <Logo />
           </Link>
           <nav className={open ? "links open" : "links"} aria-label="Site">
-            {links.map(([label, to]) => {
-              if (to === "/faq") {
-                return (
-                  <NavLink key={to} to={to} onClick={() => setOpen(false)}>
-                    {label}
-                  </NavLink>
-                );
-              }
-              const section = sectionFor[label];
-              const marking = (label === "The system" && featuresOn) || active === section;
-              return (
-                <Link
-                  key={to}
-                  to={to}
-                  className={marking ? "on" : undefined}
-                  aria-current={marking ? "page" : undefined}
-                  onClick={() => setOpen(false)}
-                >
-                  {label}
-                </Link>
-              );
-            })}
+            {links.map(([label, to]) => (
+              <NavLink
+                key={to}
+                to={to}
+                className={({ isActive }) => (isActive ? "on" : undefined)}
+                onClick={() => setOpen(false)}
+              >
+                {label}
+              </NavLink>
+            ))}
             <NavLink className="nav-cta" to="/contact" onClick={() => setOpen(false)}>
-              Book a walkthrough
+              Contact Us
             </NavLink>
           </nav>
           <button
@@ -113,7 +116,9 @@ export default function Layout() {
         </div>
       </header>
       <main id="main">
-        <Outlet />
+        <div key={pathname} className="page-in">
+          <Outlet />
+        </div>
       </main>
       <footer className="footer">
         <div className="footer-brand">
@@ -124,22 +129,23 @@ export default function Layout() {
         </div>
         <div className="footer-col">
           <p className="footer-label">Product</p>
-          <Link to="/#suite">The system</Link>
-          <Link to="/#promo">A look through</Link>
-          <Link to="/#packages">Packages</Link>
-          <Link to="/product">All features</Link>
+          <Link to="/features">Features</Link>
+          <Link to="/features#invoicing">Invoicing</Link>
+          <Link to="/features#accounting">Accounting</Link>
+          <Link to="/features#inventory">Inventory</Link>
+          <Link to="/features#multi-user">Multi-user</Link>
+          <Link to="/demo">Demo</Link>
         </div>
         <div className="footer-col">
           <p className="footer-label">The shop</p>
-          <Link to="/#industries">Industries</Link>
-          <Link to="/solutions">Who it's for</Link>
-          <Link to="/#clients">Who signs in</Link>
+          <Link to="/industries">Industries</Link>
+          <Link to="/pricing">Pricing</Link>
           <Link to="/faq">Questions</Link>
         </div>
         <div className="footer-col">
           <p className="footer-label">Talk</p>
           <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
-          <Link to="/contact">Book a walkthrough</Link>
+          <Link to="/contact">Contact Us</Link>
         </div>
         <p className="fine">Screens are from the running product.</p>
       </footer>

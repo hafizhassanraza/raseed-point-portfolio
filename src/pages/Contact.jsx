@@ -39,9 +39,9 @@ export default function Contact() {
   return (
     <>
       <PageHero
-        eyebrow="Walkthrough"
-        title="Tell us the business."
-        lede="We will walk through the software and map it to how they sell. A phone number is enough."
+        eyebrow="Contact"
+        title="Contact us."
+        lede="Tell us the business. We will walk through the software and map it to how you sell. A phone number is enough."
       />
       <section className="section contact">
         <ul className="contact-points">

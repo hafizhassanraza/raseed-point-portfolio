@@ -227,10 +227,121 @@ export const features = [
   },
 ];
 
+export const pillars = [
+  {
+    id: "invoicing",
+    name: "Invoicing",
+    icon: "billing",
+    line: "Make the bill, then follow it.",
+    plain:
+      "The counter, the invoices after it, and a store that sends the order back into the same system.",
+    parts: ["billing", "sales", "store"],
+  },
+  {
+    id: "accounting",
+    name: "Accounting",
+    icon: "money",
+    line: "Who owes whom, and how the day closed.",
+    plain: "Customer and supplier balances, then cash, bank, expenses, and profit.",
+    parts: ["balances", "money"],
+  },
+  {
+    id: "inventory",
+    name: "Inventory",
+    icon: "catalog",
+    line: "Price, quantity, and every godown.",
+    plain: "The catalog, supplier bills that bring stock in, and more than one warehouse.",
+    parts: ["catalog", "purchases", "warehouses"],
+  },
+  {
+    id: "multi-user",
+    name: "Multi-user",
+    icon: "staff",
+    line: "Each person sees only their work.",
+    plain:
+      "Admin, stock manager, and salesman. A salesman can sell without opening profit. Attendance sits in the same system.",
+    parts: ["staff"],
+  },
+];
+
+export const platformTour = {
+  titleLead: "Everything You Need to Run Your Business in",
+  titleMark: "One Platform",
+  parts: [
+    {
+      id: "inventory-management",
+      name: "Inventory Management",
+      icon: "catalog",
+      disc: "Price, quantity, and every godown, on one list.",
+      detail: "The catalog, the supplier bill that brings stock in, and more than one warehouse.",
+      to: "/features/catalog",
+      shot: "/screenshots/products.png",
+      alt: "The catalog, with price and quantity on each row.",
+      components: [
+        { name: "Catalog", line: "Price and stock on one row.", to: "/features/catalog" },
+        { name: "Purchases", line: "Supplier bills bring stock in.", to: "/features/purchases" },
+        { name: "Warehouses", line: "More than one godown, one system.", to: "/features/warehouses" },
+      ],
+    },
+    {
+      id: "invoicing",
+      name: "Invoicing",
+      icon: "sales",
+      disc: "The bill after it is made, and what is still due.",
+      detail: "Each invoice keeps its status, what is paid, and a return that stays on the customer.",
+      to: "/features/sales",
+      shot: "/screenshots/sales.png",
+      alt: "Sales invoices, with status and what is still unpaid.",
+      components: [
+        { name: "Invoices", line: "Status, paid, and the amount still due.", to: "/features/sales" },
+        { name: "Estimates", line: "A price written before anyone pays.", to: "/features/sales" },
+        { name: "Returns", line: "A credit note that stays on the customer.", to: "/features/sales" },
+      ],
+    },
+    {
+      id: "accounting",
+      name: "Accounting",
+      icon: "money",
+      disc: "Who owes whom, and how the day closed.",
+      detail: "Customer and supplier balances, then cash, bank, expenses, and profit.",
+      to: "/features/money",
+      shot: "/screenshots/profit-loss.png",
+      alt: "Profit and loss, ready to print or export.",
+      components: [
+        { name: "Balances", line: "To collect and to pay, on the list.", to: "/features/balances" },
+        { name: "Cash and bank", line: "Two books, not one mixed total.", to: "/features/money" },
+        { name: "Profit", line: "Print, PDF, or Excel from the close.", to: "/features/money" },
+      ],
+    },
+    {
+      id: "pos",
+      name: "POS",
+      icon: "billing",
+      disc: "The bill, the stock left, and the payment, together.",
+      detail: "Search by name, item code, or barcode. Tax, discount, and payment stay on that screen.",
+      to: "/features/billing",
+      shot: "/screenshots/pos.png",
+      alt: "Point of sale: search, product tiles, and the bill.",
+      components: [
+        { name: "Search", line: "Name, item code, or barcode.", to: "/features/billing" },
+        { name: "The bill", line: "Tax, discount, and payment on one screen.", to: "/features/billing" },
+        { name: "The customer", line: "A walk-in, or a named account.", to: "/features/billing" },
+      ],
+    },
+  ],
+};
+
+export function partsOf(pillar) {
+  return pillar.parts.map((slug) => features.find((item) => item.slug === slug)).filter(Boolean);
+}
+
 export function featureBySlug(slug) {
   const index = features.findIndex((item) => item.slug === slug);
   if (index < 0) return null;
-  return { feature: features[index], index };
+  const pillar = pillars.find((item) => item.parts.includes(slug)) ?? null;
+  const siblings = pillar ? partsOf(pillar) : [];
+  const within = siblings.findIndex((item) => item.slug === slug);
+  return { feature: features[index], index, pillar, siblings, within };
 }
 
 export const fits = [
@@ -411,8 +522,8 @@ export const faqs = [
   {
     q: "How much does it cost?",
     qUr: "قیمت کتنی ہے؟",
-    a: "The price is quoted for the shop on a walkthrough. This page does not print a rate.",
-    aUr: "قیمت واک تھرو پر دکان کے حساب سے بتائی جاتی ہے۔ اس صفحے پر کوئی رقم نہیں لکھی۔",
+    a: "The price is quoted for the shop when you contact us. This page does not print a rate.",
+    aUr: "قیمت رابطے پر دکان کے حساب سے بتائی جاتی ہے۔ اس صفحے پر کوئی رقم نہیں لکھی۔",
   },
   {
     q: "What do you need to start?",
