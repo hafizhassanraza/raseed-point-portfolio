@@ -19,7 +19,7 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   background:
-    radial-gradient(900px 480px at 90% -8%, rgba(24, 144, 255, 0.18), transparent 58%),
+    radial-gradient(900px 480px at 8% -8%, rgba(24, 144, 255, 0.18), transparent 58%),
     radial-gradient(700px 380px at -10% 18%, rgba(24, 144, 255, 0.08), transparent 55%),
     var(--bg);
   color: var(--ink);
@@ -44,7 +44,7 @@ body::after {
   position: fixed;
   width: 46vw;
   height: 46vw;
-  right: -10vw;
+  left: -10vw;
   top: -12vw;
   pointer-events: none;
   z-index: 0;
@@ -209,7 +209,24 @@ main { padding-top: 74px; }
   margin-bottom: 14px;
 }
 .lede { max-width: 38rem; margin-top: 18px; font-size: 1.15rem; color: var(--muted); }
-.hero h1 { max-width: 11em; line-height: 1.02; }
+.hero h1 { max-width: 11em; line-height: 1.08; }
+.hero h1 em {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.36em;
+}
+.hero h1 em::after {
+  content: "";
+  position: absolute;
+  left: -0.5%;
+  right: -1%;
+  top: 0.94em;
+  height: 0.46em;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 36' preserveAspectRatio='none'><path d='M1 7 C 12 4, 20 16, 38 8 C 52 3, 60 15, 78 12 C 94 9, 104 18, 124 7 C 142 2, 154 16, 176 11 C 194 7, 208 15, 238 5' fill='none' stroke='%23e11d2e' stroke-width='5.5' stroke-linecap='round'/><path d='M6 10 C 18 8, 28 16, 50 11 C 66 7, 80 15, 106 12 C 126 9, 144 16, 168 8 C 186 4, 210 12, 236 9' fill='none' stroke='%23ff4d5a' stroke-width='2.4' stroke-linecap='round' opacity='0.75'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+}
 .hero .lede { max-width: 38rem; margin-top: 18px; font-size: 1.08rem; line-height: 1.65; }
 .hero .lede strong { color: var(--ink); font-weight: 600; }
 .hero .actions { margin-top: 26px; }
@@ -965,7 +982,7 @@ main { padding-top: 74px; }
 }
 @keyframes drift {
   0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(-36px, 28px, 0); }
+  50% { transform: translate3d(36px, 28px, 0); }
 }
 
 @media (min-width: 860px) {
